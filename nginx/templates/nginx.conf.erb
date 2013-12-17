@@ -1,0 +1,34 @@
+# Do NOT edit. This file is controlled by Puppet!
+
+user            <%= @user %>;
+worker_process  <%= @workers %>;
+
+error_log       <%= @logdir %>/error.log
+pid             <%= @rundir %>/nginx.pid
+
+events {
+    worker_connections  1024;
+}
+
+http {
+    include         <%= @configdir %>/mime.types;
+    default_type    application/octet-stream;
+    
+    log_format      main '$remote_addr - $remote_user [$time_local] "$request" '
+                         '$status $body_bytes_sent "$http_referer"'
+                         '"$http_user-agent" "$http_x_forwarded_for"';
+
+    access_log      <%= @logdir %>/access.log   main;
+    
+    sendfile        <%= @sendfile %>;
+<%- if @tcp_nopush != 'off' %>
+    tcp_nopush      <%= @tcp_nopush %>;
+<%- end %>
+    keepalive_timeout   <%= @tcp_nopush %>;
+
+<%- if @gzip != 'off' %>
+    gzip            <%= @gzip %>;
+<%- end %>
+
+    include <%= @configdir %>/conf.d/*.conf;
+}

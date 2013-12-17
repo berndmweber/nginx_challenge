@@ -1,0 +1,17 @@
+# Do NOT modify this file. It is controlled by Puppet!
+
+server {
+    listen              <%= @listen %>;
+    servername          <%= @servername %>;
+    
+<%- if @access_log %>
+    access_log          <%= @access_log %>;
+<%- end %>
+
+<%- @locations.each do |location| %>
+    location    <%= location.name %> {
+        root            <%= location.root %>;
+        index           <%= location.index %>;
+    }
+<%- end %>
+}
