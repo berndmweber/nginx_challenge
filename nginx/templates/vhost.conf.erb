@@ -2,16 +2,16 @@
 
 server {
     listen              <%= @listen %>;
-    servername          <%= @servername %>;
+    server_name         <%= @servername %>;
     
 <%- if @access_log %>
     access_log          <%= @access_log %>;
 <%- end %>
 
 <%- @locations.each do |location| %>
-    location    <%= location.name %> {
-        root            <%= location.root %>;
-        index           <%= location.index %>;
+    location    <%= location["name"] %> {
+        root            <%= location["root"] %>;
+        index           <%= location["index"] %>;
     }
 <%- end %>
 }

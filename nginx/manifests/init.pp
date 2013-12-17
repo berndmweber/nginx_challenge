@@ -22,13 +22,14 @@ class nginx (
   $vhosts             = undef,
 ) inherits nginx::params {
 
-  $configdir = $nginx::params::configdir
-  $conffile  = $nginx::params::conffile
-  $pidfile   = $nginx::params::pidfile
-  $logdir    = $nginx::params::logdir
-  $rundir    = $nginx::params::rundir
-  $user      = $nginx::params::user
-  $service   = $nginx::params::service
+  $configdir      = $nginx::params::configdir
+  $conffile       = $nginx::params::conffile
+  $pidfile        = $nginx::params::pidfile
+  $vhost_base_dir = $nginx::params::vhost_base_dir
+  $logdir         = $nginx::params::logdir
+  $rundir         = $nginx::params::rundir
+  $user           = $nginx::params::user
+  $service        = $nginx::params::service
 
   class { 'nginx::install' : }
   class { 'nginx::config' :
@@ -56,6 +57,7 @@ class nginx::config (
   $pidfile            = $nginx::params::pidfile,
   $logdir             = $nginx::params::logdir,
   $rundir             = $nginx::params::rundir,
+  $vhost_base_dir     = $nginx::params::vhost_base_dir,
   $user               = $nginx::params::user,
   $workers            = $nginx::params::workers,
   $worker_connections = $nginx::params::worker_connections,
@@ -78,6 +80,9 @@ class nginx::config (
       recurse => true,
       ignore  => "pp_*.conf",
     }
+  }
+  file { $vhost_base_dir :
+    ensure  => directory,
   }
 }
 
