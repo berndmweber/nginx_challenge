@@ -8,7 +8,7 @@ define nginx::vhost (
     ensure  => file,
     owner   => $nginx::user,
     content => template ( 'nginx/vhost.conf.erb' ),
-    notify  => $nginx::service,
+    notify  => Service [ $nginx::service ],
     require => Class [ 'nginx::config' ],
   }
 }
