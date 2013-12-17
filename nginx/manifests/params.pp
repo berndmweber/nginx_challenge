@@ -3,7 +3,8 @@ class nginx::params {
   $configdir          = '/etc/nginx'
   $conffile           = 'nginx.conf'
   $pidfile            = 'nginx.pid'
-  $vhost_base_dir     = '/var/www/vhosts'
+  $www_base_dir       = '/var/www'
+  $vhost_base_dir     = "${www_base_dir}/vhosts"
 
   $user               = 'nginx'
 
