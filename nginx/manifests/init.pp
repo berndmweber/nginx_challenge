@@ -35,7 +35,9 @@ class nginx (
     require =>  Class [ 'nginx::install' ],
   }
 
-
+  if $vhosts != undef {
+    create_resources( 'nginx::vhost', $vhosts )
+  }
 
   class { 'nginx::service' :
     require =>  Class [ 'nginx::config' ],

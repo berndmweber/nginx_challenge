@@ -15,8 +15,8 @@ class nginx::params {
 
   $default_listen     = '80 default'
 
-  case $::operatingssytem {
-    'centos' : {
+  case $::operatingsystem {
+    'CentOS' : {
       $packagename  = 'nginx'
       $logdir       = '/var/log/nginx'
       $rundir       = '/var/run'
